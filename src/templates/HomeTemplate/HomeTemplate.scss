@@ -48,5 +48,10 @@ body {
     height: 13px;
     text-align: left;
     text-decoration: none;
-    @include text(16px, 300, #F7F7F7)
+    @include text(16px, 300, #F7F7F7);
+    transition: all 0.2s;
+
+    &:hover {
+        color: #f5df3b !important;
+    }
 }

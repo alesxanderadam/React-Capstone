@@ -1,0 +1,20 @@
+.avatar {
+    height: 225px;
+    width: 225px;
+    left: 34px;
+    top: 147px;
+    border-radius: 0px;
+
+    img {
+        border-radius: 100rem;
+    }
+}
+
+.chose {
+    .chose-item {
+        padding: 10px;
+        border-right: 1px solid #DEDDDC !important;
+        border-bottom: 1px solid #DEDDDC !important;
+        border-left: 1px solid #DEDDDC !important;
+    }
+}
