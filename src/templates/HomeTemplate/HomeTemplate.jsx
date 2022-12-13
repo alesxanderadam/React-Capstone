@@ -1,9 +1,18 @@
 import { Nav, Navbar } from 'react-bootstrap'
 import Container from 'react-bootstrap/esm/Container'
+import { useSelector } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
 import { PageConstant } from '../../Commons/page.constant'
 import './HomeTemplate.scss'
 export const HomeTemplate = () => {
+    const { Login } = useSelector(state => state.loginReducer)
+    const renderLoginButton = () => {
+        if (Login) {
+            return <NavLink to={`${PageConstant.profile}`} style={{ textDecoration: 'none' }}> <h5 className='login mx-2'> He sờ lô ! {Login.email}</h5> </NavLink>
+        }
+        return <NavLink to={`${PageConstant.login}`} style={{ textDecoration: 'none' }}><h5 className='login mx-2'>Login</h5></NavLink>
+    }
+
     return (
         <>
             <Navbar className='header' expand="lg">
@@ -24,8 +33,8 @@ export const HomeTemplate = () => {
                             <h2 className='icon-shopping'>🛒</h2>
                             <h3 className='amount'>(1)</h3>
                         </div>
-                        <NavLink style={{ textDecoration: 'none' }} to={`${PageConstant.login}`}><h5 className='login'>Login</h5></NavLink>
-                        <NavLink style={{ textDecoration: 'none' }} to={`${PageConstant.register}`}> <h5 className='login mx-2'>Register</h5></NavLink>
+                        {renderLoginButton()}
+                        <NavLink style={{ textDecoration: 'none' }} to={`${PageConstant.register}`}><h5 className='login mx-2'>Register</h5></NavLink>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
