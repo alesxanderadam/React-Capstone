@@ -1,14 +1,19 @@
 import { Nav, Navbar } from 'react-bootstrap'
 import Container from 'react-bootstrap/esm/Container'
 import { useSelector } from 'react-redux'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { PageConstant } from '../../Commons/page.constant'
+import { ACCESS_TOKEN, removeStore, USER_LOGIN, USER_PROFILE } from '../../util/config'
 import './HomeTemplate.scss'
 export const HomeTemplate = () => {
     const { Login } = useSelector(state => state.loginReducer)
+    const navigate = useNavigate()
     const renderLoginButton = () => {
         if (Login) {
-            return <NavLink to={`${PageConstant.profile}`} style={{ textDecoration: 'none' }}> <h5 className='login mx-2'> He sờ lô ! {Login.email}</h5> </NavLink>
+            return <>
+                <NavLink to={`${PageConstant.profile}`} style={{ textDecoration: 'none' }}> <h5 className='login mx-2'> He sờ lô ! {Login.email}</h5> </NavLink>
+                <span style={{ cursor: 'pointer', paddingRight: '15px' }} onClick={() => { removeStore(ACCESS_TOKEN); removeStore(USER_LOGIN); removeStore(USER_PROFILE); window.location.reload(); navigate(`${PageConstant.login}`); }}>Logout</span>
+            </>
         }
         return <NavLink to={`${PageConstant.login}`} style={{ textDecoration: 'none' }}><h5 className='login mx-2'>Login</h5></NavLink>
     }
