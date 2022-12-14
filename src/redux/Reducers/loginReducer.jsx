@@ -38,9 +38,9 @@ export const loginApi = (userLogin) => {
             saveStore(ACCESS_TOKEN, res.data.content.accessToken);
             const actionGetProfile = getProfileApi();
             dispatch(actionGetProfile);
-            history.push(`${PageConstant.profile}`)
-        }).then((err) => {
-            console.log(err)
+            history.push(`${PageConstant.profile}`);
+        }).catch((err) => {
+            message.error(`${err.response.data.message}`)
         })
     }
 }
@@ -49,9 +49,11 @@ export const getProfileApi = () => {
     return async dispatch => {
         await http.post('/api/Users/getProfile').then((res) => {
             const action = getProfileAction(res.data.content)
-            dispatch(action)
+            dispatch(action);
             saveStoreJson(USER_PROFILE, res.data.content);
-            window.location.reload()
+            window.location.reload();
+        }).catch((err) => {
+            console.log(err)
         })
 
     }
@@ -60,9 +62,12 @@ export const getProfileApi = () => {
 export const editProfileApi = (editProfile) => {
     return async dispatch => {
         await http.post('/api/Users/updateProfile', editProfile).then((res) => {
-            const action = editProfileAciton(res.data.content)
-            dispatch(action)
-            message.success("Update success")
+            const action = editProfileAciton(res.data.content);
+            dispatch(action);
+            message.success("Update success");
+        }).catch((err) => {
+            message.error(`${err.response.data.content}`);
+            return;
         })
     }
 }

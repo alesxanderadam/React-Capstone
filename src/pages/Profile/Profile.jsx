@@ -134,7 +134,7 @@ export const Profile = () => {
                             </Form.Item>
 
                             <Form.Item>
-                                <Button type="primary"> Update </Button>
+                                <Button className="edit-button-profile mt-3" type="primary"> Update </Button>
                             </Form.Item>
                         </Form>
                     </div>
@@ -159,8 +159,8 @@ export const Profile = () => {
                 </div>
                 <hr />
                 <div className="chose d-flex mb-5">
-                    <Button active className="chose-item me-3"><h1>Order history</h1></Button>
-                    <Button active className="chose-item"><h1>Favourite</h1></Button>
+                    <Button className="chose-item me-3"><h1>Order history</h1></Button>
+                    <Button className="chose-item"><h1>Favourite</h1></Button>
                 </div>
                 <div className="product-table">
                     <p className="title-table mb-0">+ Orders have been placed on 09 - 19 - 2020</p>

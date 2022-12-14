@@ -1,6 +1,6 @@
-import { BrowserRouter, Navigate, Route, Routes, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
+import { Navigate, Route, Routes, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
 import { HomeTemplate } from './templates/HomeTemplate/HomeTemplate';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { Home } from './pages/Home/Home';
 import { Register } from './pages/Register/Register.jsx';
 import { Search } from './pages/Search/Search';
@@ -11,8 +11,10 @@ import Cart from './pages/Cart/Cart';
 import { Login } from './pages/Login/login';
 import { ACCESS_TOKEN, getStore } from './util/config';
 import { createBrowserHistory } from 'history';
-import './assets/scss/style.scss'
 import { Profile } from './pages/Profile/profile';
+import './assets/scss/style.scss'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 export const history = createBrowserHistory()
 function App() {
     return (
