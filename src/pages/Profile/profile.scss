@@ -12,15 +12,26 @@
 
 .chose {
     .chose-item {
-        padding: 10px;
+        background-color: transparent !important;
         border-right: 1px solid #DEDDDC !important;
         border-bottom: 1px solid #DEDDDC !important;
         border-left: 1px solid #DEDDDC !important;
-        color: #DD2AED;
+        border-top: none;
 
-        &:last-child {
-            color: #000000;
+        h1 {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 32px;
+            line-height: 39px;
+            color: #CB0DC3;
+
+            &:nth-of-type(2) {
+                color: #000000 !important;
+            }
         }
+
+
     }
 }
 

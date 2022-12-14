@@ -159,8 +159,8 @@ export const Profile = () => {
                 </div>
                 <hr />
                 <div className="chose d-flex mb-5">
-                    <div className="chose-item"><h1>Order history</h1></div>
-                    <div className="chose-item"><h1>Favourite</h1></div>
+                    <Button active className="chose-item me-3"><h1>Order history</h1></Button>
+                    <Button active className="chose-item"><h1>Favourite</h1></Button>
                 </div>
                 <div className="product-table">
                     <p className="title-table mb-0">+ Orders have been placed on 09 - 19 - 2020</p>
