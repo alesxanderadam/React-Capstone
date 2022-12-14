@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { PageConstant } from '../../Commons/page.constant';
 import { LoginModel } from '../../models/login.modal';
 import { loginApi } from '../../redux/Reducers/loginReducer';

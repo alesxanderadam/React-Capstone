@@ -10,9 +10,9 @@ import { Page404 } from './Page404/Page404';
 import Cart from './pages/Cart/Cart';
 import { Login } from './pages/Login/login';
 import { ACCESS_TOKEN, getStore } from './util/config';
-import { Profile } from './pages/Profile/profile';
 import { createBrowserHistory } from 'history';
 import './assets/scss/style.scss'
+import { Profile } from './pages/Profile/profile';
 export const history = createBrowserHistory()
 function App() {
     return (
