@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from "react-redux"
 import { editProfileApi, getProfileApi } from "../../redux/Reducers/loginReducer"
 import { useEffect } from 'react'
 import { USER_PROFILE } from "../../util/config";
-import { Form, Input, Select, Space, Table, Tag } from 'antd';
+import { Avatar, Form, Input, Select, Table, Tag } from 'antd';
 import './profile.scss'
 import { Button } from "react-bootstrap";
 export const Profile = () => {
     const dispatch = useDispatch();
     const { Profile } = useSelector(state => state.loginReducer)
-    const arrProduct = Profile.ordersHistory
+    const arrProduct = Profile.ordersHistory;
     const [form] = Form.useForm();
     const validateMessages = {
         required: '${label} is required!',
@@ -28,49 +28,78 @@ export const Profile = () => {
             dataIndex: 'id'
         },
         {
-            title: 'image',
-            dataIndex: 'image',
-            key: 'age',
+            key: 'image',
+            title: 'Image',
+            dataIndex: 'orderDetail',
+            width: 250,
+            render: (data) => (
+                <>
+                    {data.map((tag) => {
+                        return (
+                            <Avatar.Group>
+                                <Avatar className="shape-avatar" shape="square" size={80} src={tag.image}></Avatar>
+                            </Avatar.Group>
+                        )
+                    })}
+                </>
+            ),
         },
         {
-            title: 'name',
-            dataIndex: 'address',
-            key: 'address',
+            key: 'name',
+            title: 'Name',
+            dataIndex: 'orderDetail',
+            render: (data) => (
+                <>
+                    {data.map((item) => {
+                        return (
+                            item.name + ' , '
+                        )
+                    })}
+                </>
+            )
         },
         {
-            title: 'price',
-            dataIndex: 'address',
             key: 'price',
+            title: 'price',
+            dataIndex: 'orderDetail',
+            render: (data) => (
+                <>
+                    {data.map((item) => {
+                        return (
+                            item.price + ' , '
+                        )
+                    })}
+                </>
+            )
         },
         {
+            key: 'quatatity',
             title: 'quatatity',
-            key: 'tags',
-            dataIndex: 'tags',
-            // render: (_, { tags }) => (
-            //     <>
-            //         {tags.map((tag) => {
-            //             let color = tag.length > 5 ? 'geekblue' : 'green';
-            //             if (tag === 'loser') {
-            //                 color = 'volcano';
-            //             }
-            //             return (
-            //                 <Tag color={color} key={tag}>
-            //                     {tag.toUpperCase()}
-            //                 </Tag>
-            //             );
-            //         })}
-            //     </>
-            // ),
+            dataIndex: 'orderDetail',
+            render: (data) => (
+                <>
+                    {data.map((item) => {
+                        return (
+                            <Tag color="default">{item.quantity}</Tag>
+
+                        )
+                    })}
+                </>
+            )
         },
         {
+            key: 'total',
             title: 'total',
-            key: 'action',
-            // render: (_, record) => (
-            //     <Space size="middle">
-            //         <a>Invite {record.name}</a>
-            //         <a>Delete</a>
-            //     </Space>
-            // ),
+            dataIndex: 'orderDetail',
+            render: (data) => (
+                <>
+                    {data.map((item) => {
+                        return (
+                            `${item.price * item.quantity} ` + ' , '
+                        )
+                    })}
+                </>
+            )
         },
     ];
 
@@ -119,7 +148,7 @@ export const Profile = () => {
                                 <Input.Password disabled={true} className='input-form-login' style={{ background: "rgba(33, 33, 33, -0.92)" }} />
                             </Form.Item>
 
-                            <Form.Item name="select" label="Gender" hasFeedback >
+                            <Form.Item name="gender" label="Gender" hasFeedback >
                                 <Select placeholder="Please select gender">
                                     <Select.Option value={false}>Male</Select.Option>
                                     <Select.Option value={true}>Female</Select.Option>

@@ -55,3 +55,56 @@ body {
         color: #f5df3b !important;
     }
 }
+
+footer {
+    .footer-link {
+        h4 {
+            height: 29px;
+            width: 150px;
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 20px;
+            text-align: center;
+            color: #000000;
+        }
+
+        ul {
+            padding: 0 30px;
+            list-style: none;
+            text-align: left;
+
+            &:nth-child(2) {
+                padding: 0 40px;
+            }
+
+            li {
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 30px;
+
+                color: #000000;
+
+            }
+        }
+    }
+
+    @media screen and (max-width: 769px) {
+        .footer-link {
+            margin-top: 20px;
+
+            h4 {
+                width: 100% !important;
+            }
+
+            ul {
+                list-style: none;
+                text-align: center !important;
+                padding: 0;
+            }
+        }
+
+    }
+}

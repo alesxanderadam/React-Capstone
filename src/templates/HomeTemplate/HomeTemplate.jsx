@@ -12,7 +12,7 @@ export const HomeTemplate = () => {
         if (Login) {
             return <>
                 <NavLink to={`${PageConstant.profile}`} style={{ textDecoration: 'none' }}> <h5 className='login mx-2'> He sờ lô ! {Login.email}</h5> </NavLink>
-                <span style={{ cursor: 'pointer', paddingRight: '15px' }} onClick={() => { removeStore(ACCESS_TOKEN); removeStore(USER_LOGIN); removeStore(USER_PROFILE); window.location.reload(); navigate(`${PageConstant.login}`); }}>Logout</span>
+                <span className='text-danger' style={{ cursor: 'pointer', paddingRight: '15px' }} onClick={() => { removeStore(ACCESS_TOKEN); removeStore(USER_LOGIN); removeStore(USER_PROFILE); window.location.reload(); navigate(`${PageConstant.login}`); }}>Logout</span>
             </>
         }
         return <NavLink to={`${PageConstant.login}`} style={{ textDecoration: 'none' }}><h5 className='login mx-2'>Login</h5></NavLink>
@@ -46,8 +46,61 @@ export const HomeTemplate = () => {
             <div style={{ minHeight: '90vh' }}>
                 <Outlet />
             </div>
-            <footer className='bg-dark text-white text-center p-3'>
-                Footer
+            <footer className='bg-light text-dark text-center p-3 mt-5'>
+                <div className='row'>
+                    <div class="col-lg-4 col-xl-3 offset-xl-1 col-md-4 col-sm-12 col-12">
+                        <div class="footer-link">
+                            <h4>Quick Link</h4>
+                            <ul class="ft-link">
+                                <li>
+                                    Home
+                                </li>
+                                <li>
+                                    Nike
+                                </li>
+                                <li>
+                                    Adidas
+                                </li>
+                                <li>
+                                    Contact
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xl-3 offset-xl-1 col-md-4 col-sm-12 col-12">
+                        <div class="footer-link">
+                            <h4>Support</h4>
+                            <ul class="ft-link">
+                                <li>
+                                    About
+                                </li>
+                                <li>
+                                    Contact
+                                </li>
+                                <li>
+                                    Help
+                                </li>
+                                <li>
+                                    Phone
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xl-3 offset-xl-1 col-md-4 col-sm-12 col-12">
+                        <div class="footer-link">
+                            <h4>REGISTER</h4>
+                            <ul class="ft-link">
+                                <li>
+                                    Register
+                                </li>
+                                <li>
+                                    Login
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </footer>
         </>
     )

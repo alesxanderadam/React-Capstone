@@ -7,7 +7,6 @@ import { loginApi } from '../../redux/Reducers/loginReducer';
 import { Button, Form, Input } from 'antd';
 import { FacebookOutlined } from "@ant-design/icons"
 import './login-form-scss/login-form.scss'
-import { history } from '../../App';
 
 export const Login = () => {
     const dispatch = useDispatch()
@@ -36,7 +35,7 @@ export const Login = () => {
 
                 <Form.Item wrapperCol={{ offset: 9, span: 16 }}>
                     <NavLink className='text-register' to={`${PageConstant.register}`}>Register now ?</NavLink>
-                    <Button className='btn-login ms-3s' htmlType='submit' type="primary">Login</Button>
+                    <Button className='btn-login ms-3' htmlType='submit' type="primary">Login</Button>
                 </Form.Item>
                 <a className='py-3 login-facebook'><FacebookOutlined className='me-2 icon-facebook' style={{ fontSize: "40px" }} /><h3 className='mt-1' style={{ fontSize: "20px" }}>Continue with Facebook</h3></a>
             </Form>

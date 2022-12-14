@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { message } from 'antd';
 import { history } from '../../App';
 import { PageConstant } from '../../Commons/page.constant';
 import { ACCESS_TOKEN, getStoreJson, http, saveStore, saveStoreJson, USER_LOGIN, USER_PROFILE } from '../../util/config';
@@ -61,6 +62,7 @@ export const editProfileApi = (editProfile) => {
         await http.post('/api/Users/updateProfile', editProfile).then((res) => {
             const action = editProfileAciton(res.data.content)
             dispatch(action)
+            message.success("Update success")
         })
     }
 }
