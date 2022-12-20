@@ -1,4 +1,7 @@
 import axios from "axios";
+import { isExpired } from "react-jwt";
+import { history } from "../App";
+import { PageConstant } from "../Commons/page.constant";
 
 export const ACCESS_TOKEN = "accessToken";
 export const USER_LOGIN = "userLogin";
@@ -45,5 +48,23 @@ http.interceptors.request.use((config) => {
     }
     return config;
 }, (err) => {
+    return Promise.reject(err)
+})
+
+http.interceptors.response.use((res) => {
+    return res;
+}, (err) => {
+    if (err.resspone?.status === 401 || err.resspone?.status === 403) {
+        const isMyTokenExpried = isExpired(getStore(ACCESS_TOKEN))
+        console.log(isMyTokenExpried)
+        if (isMyTokenExpried) {
+            alert("Phiên đăng nhập hết hạn")
+            removeStore(ACCESS_TOKEN)
+            removeStore(USER_LOGIN)
+            removeStore(USER_PROFILE)
+            window.location.href = `${PageConstant.login}`
+        }
+        history.push('/')
+    }
     return Promise.reject(err)
 })

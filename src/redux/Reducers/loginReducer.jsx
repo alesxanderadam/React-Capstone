@@ -21,11 +21,14 @@ const loginReducer = createSlice({
         },
         editProfileAciton: (state, action) => {
             state = action.payload
+        },
+        deleteIdProductAction: (state, action) => {
+            state = action.payload
         }
     }
 });
 
-export const { loginAction, getProfileAction, editProfileAciton } = loginReducer.actions
+export const { loginAction, getProfileAction, editProfileAciton, deleteIdProductAction } = loginReducer.actions
 
 export default loginReducer.reducer
 
@@ -65,6 +68,21 @@ export const editProfileApi = (editProfile) => {
             const action = editProfileAciton(res.data.content);
             dispatch(action);
             message.success("Update success");
+        }).catch((err) => {
+            message.error(`${err.response.data.content}`);
+            return;
+        })
+    }
+}
+
+export const deleteIdProductApi = (id) => {
+    return async dispatch => {
+        await http.post('/api/Users/deleteOrder', id).then((res) => {
+            const action = deleteIdProductAction();
+            dispatch(action);
+            const getProfileAction = getProfileApi()
+            dispatch(getProfileAction)
+            message.success("Delte Succses");
         }).catch((err) => {
             message.error(`${err.response.data.content}`);
             return;

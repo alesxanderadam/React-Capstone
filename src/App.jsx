@@ -25,7 +25,7 @@ function App() {
                         <Route index path={`${PageConstant.home}`} element={<Home />}></Route>
                         <Route path={`${PageConstant.cart}`} element={<Cart />}></Route>
                         <Route path={`${PageConstant.login}`} element={<Login />}></Route>
-                        <Route path={`${PageConstant.profile}`} element={getStore(ACCESS_TOKEN) ? <Profile /> : history.push(`${PageConstant.login}`)}></Route>
+                        <Route path={`${PageConstant.profile}`} element={getStore(ACCESS_TOKEN) ? <Profile /> : <Login />}></Route>
                         <Route path={`${PageConstant.register}`} element={<Register />}></Route>
                         <Route path={`${PageConstant.search}`} element={<Search />}></Route>
                         <Route path={`${PageConstant.detail}/:id`} element={<Detail />}></Route>
