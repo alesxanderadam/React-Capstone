@@ -16,11 +16,11 @@ export const Login = () => {
             email: '${label} is not a valid email!',
         },
     };
-    const responseFacebook = (responseFacebook: any) => {
+    const responseFacebook = (responseFacebook) => {
         console.log(responseFacebook)
     }
-    const onSubmit = (login: any) => {
-        const action: any = loginApi(login)
+    const onSubmit = (login) => {
+        const action = loginApi(login)
         dispatch(action)
     }
     return (
@@ -54,7 +54,7 @@ export const Login = () => {
                     </a>
                 </Form.Item> */}
             </Form>
-        </div >
+        </div>
 
     )
 }
