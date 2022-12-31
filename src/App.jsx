@@ -11,7 +11,7 @@ import Cart from './pages/Cart/Cart';
 import { Login } from './pages/Login/login';
 import { ACCESS_TOKEN, getStore } from './util/config';
 import { createBrowserHistory } from 'history';
-import { Profile } from './pages/Profile/profile';
+import { Profile } from './pages/Profile/Profile';
 import './assets/scss/style.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
