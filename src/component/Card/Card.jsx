@@ -25,7 +25,7 @@ const Card = ({ product }) => {
   }
 
   return (
-    <div className="card">
+    <div className="card" style={{ height: '500px' }}>
       <div className="card__body">
         <img src={product.image} style={{ objectFit: 'contain' }} className="card__image" />
         <h5 className="card__title text-center">

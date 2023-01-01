@@ -14,9 +14,7 @@ export const Home = () => {
     const [pageNumber, setPageNumber] = useState(0);
 
     const contentStyle = {
-        color: '#fff',
-        textAlign: 'center',
-        background: '#364d79',
+        color: '#00000',
     };
 
     const dispatch = useDispatch();
@@ -49,7 +47,9 @@ export const Home = () => {
         if (productData.length !== 0) {
             return displayPage.map((prod, index) => {
                 return (
-                    <Card product={prod} key={index} />
+                    <div className="col-xl-3 col-md-5 col-sm-12" key={index}>
+                        <Card product={prod} key={index} />
+                    </div>
                 )
             })
         }
@@ -58,22 +58,19 @@ export const Home = () => {
 
     useEffect(() => {
         getAllProductApi();
-    }, [])
-
-    useEffect(() => {
         setProductData(arrProduct);
     }, [arrProduct])
 
     return (
         <div>
             <Carousel autoplay dots={false}>
-                {arrProduct?.map((item, index) => {
+                {arrProduct?.filter(newArrProduct => newArrProduct.id < 5)?.map((item, index) => {
                     return <div key={index}>
                         <div className="row align-items-center" style={contentStyle} >
-                            <div className="col-md-6 col-xs-12">
-                                <img className="img-fluid h-100" src={item.image}></img>
+                            <div className="col-xl-6 col-xs-12">
+                                <img className="mx-auto d-block " src={item.image}></img>
                             </div>
-                            <div className="col-md-6 col-xs-12">
+                            <div className="text-center col-xl-6 col-xs-12">
                                 <div>
                                     <h1>{item.name}</h1>
                                     <p>{item.description}</p>
@@ -86,7 +83,7 @@ export const Home = () => {
             </Carousel>
 
             <h1 className="text-center" style={{ marginTop: '30px' }}>Product Feature</h1>
-            <div className="wrapper p-5">
+            <div className="wrapper row p-5">
                 {renderCardProduct()}
             </div>
 
