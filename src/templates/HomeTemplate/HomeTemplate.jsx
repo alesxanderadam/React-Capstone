@@ -48,10 +48,10 @@ export const HomeTemplate = () => {
             </div>
             <footer className='bg-light text-dark text-center p-3 mt-5'>
                 <div className='row'>
-                    <div class="col-lg-4 col-xl-3 offset-xl-1 col-md-4 col-sm-12 col-12">
-                        <div class="footer-link">
+                    <div className="col-lg-4 col-xl-3 offset-xl-1 col-md-4 col-sm-12 col-12">
+                        <div className="footer-link">
                             <h4>Quick Link</h4>
-                            <ul class="ft-link">
+                            <ul className="ft-link">
                                 <li>
                                     Home
                                 </li>
@@ -68,10 +68,10 @@ export const HomeTemplate = () => {
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-xl-3 offset-xl-1 col-md-4 col-sm-12 col-12">
-                        <div class="footer-link">
+                    <div className="col-lg-4 col-xl-3 offset-xl-1 col-md-4 col-sm-12 col-12">
+                        <div className="footer-link">
                             <h4>Support</h4>
-                            <ul class="ft-link">
+                            <ul className="ft-link">
                                 <li>
                                     About
                                 </li>
@@ -87,10 +87,10 @@ export const HomeTemplate = () => {
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-xl-3 offset-xl-1 col-md-4 col-sm-12 col-12">
-                        <div class="footer-link">
+                    <div className="col-lg-4 col-xl-3 offset-xl-1 col-md-4 col-sm-12 col-12">
+                        <div className="footer-link">
                             <h4>REGISTER</h4>
-                            <ul class="ft-link">
+                            <ul className="ft-link">
                                 <li>
                                     Register
                                 </li>
