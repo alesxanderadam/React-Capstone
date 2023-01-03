@@ -23,16 +23,18 @@ export const HomeTemplate = () => {
             <Navbar className='header' expand="lg">
                 <Container fluid>
                     <Navbar.Brand>
-                        <NavLink to={`${PageConstant.home}`}>
+                        <NavLink to='/'>
                             <img alt="" src="./images/Cyber-Logo.png" className="d-inline-block align-top" />
                         </NavLink>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll> </Nav>
-                        <div className="d-flex align-items-center text-white" style={{ position: 'relative' }}>
-                            <i className="fa-solid fa-magnifying-glass"></i>
-                            <h3 className='search ms-2'>Search</h3>
+                        <div style={{ position: 'relative' }}>
+                            <NavLink to={`${PageConstant.search}`} className='d-flex align-items-center text-white' style={{ textDecoration: 'none' }}>
+                                <i className="fa-solid fa-magnifying-glass icon-search" ></i>
+                                <h3 className='search ms-2'>Search</h3>
+                            </NavLink>
                         </div>
                         <div className='d-flex align-items-center text-white mx-2'>
                             <h2 className='icon-shopping'>🛒</h2>

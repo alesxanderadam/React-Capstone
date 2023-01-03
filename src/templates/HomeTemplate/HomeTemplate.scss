@@ -28,8 +28,12 @@ body {
 }
 
 .search {
-    height: 30px;
-    @include text(30px, 300, #FFFFFF)
+    height: 22px;
+    @include text(23px, 300, #FFFFFF)
+}
+
+.icon-search {
+    font-size: 20px;
 }
 
 .icon-shopping {

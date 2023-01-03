@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
-import { HomeTemplate } from './templates/HomeTemplate/HomeTemplate';
+import { HomeTemplate } from './templates/HomeTemplate/home-template';
 
 import { Home } from './pages/Home/Home';
 import { Register } from './pages/Register/Register.jsx';
@@ -7,14 +7,13 @@ import { Search } from './pages/Search/Search';
 import { Detail } from './pages/Detail/Detail';
 import { PageConstant } from './Commons/page.constant';
 import { Page404 } from './Page404/Page404';
+import { Profile } from './pages/Profile/profile'
 import Cart from './pages/Cart/Cart';
 import { Login } from './pages/Login/login';
 import { ACCESS_TOKEN, getStore } from './util/config';
 import { createBrowserHistory } from 'history';
 import './assets/scss/style.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Profile } from './pages/Profile/profile';
-
 export const history = createBrowserHistory()
 function App() {
     return (
