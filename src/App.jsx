@@ -21,8 +21,8 @@ function App() {
         <>
             <HistoryRouter history={history}>
                 <Routes>
-                    <Route path='' element={<HomeTemplate />}>
-                        <Route index path={`${PageConstant.home}`} element={<Home />}></Route>
+                    <Route path='/' element={<HomeTemplate />}>
+                        <Route index element={<Home />}></Route>
                         <Route path={`${PageConstant.cart}`} element={<Cart />}></Route>
                         <Route path={`${PageConstant.login}`} element={<Login />}></Route>
                         <Route path={`${PageConstant.profile}`} element={getStore(ACCESS_TOKEN) ? <Profile /> : <Login />}></Route>

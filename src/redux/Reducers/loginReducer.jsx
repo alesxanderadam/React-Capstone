@@ -24,11 +24,14 @@ const loginReducer = createSlice({
         },
         deleteIdProductAction: (state, action) => {
             state = action.payload
+        },
+        loginFacebookAction: (state, action) => {
+            state = action.payload
         }
     }
 });
 
-export const { loginAction, getProfileAction, editProfileAciton, deleteIdProductAction } = loginReducer.actions
+export const { loginAction, getProfileAction, editProfileAciton, deleteIdProductAction, loginFacebookAction } = loginReducer.actions
 
 export default loginReducer.reducer
 
@@ -85,6 +88,18 @@ export const deleteIdProductApi = (id) => {
             message.success("Delte Succses");
         }).catch((err) => {
             message.error(`${err.response.data.content}`);
+            return;
+        })
+    }
+}
+
+export const loginFacebookApi = (accessToeken) => {
+    return async dispatch => {
+        await http.post('/api/Users/facebooklogin', accessToeken).then((res) => {
+            const action = loginFacebookAction(res.data.content)
+            dispatch(action)
+            message.success("Delte Succses");
+        }).catch((err) => {
             return;
         })
     }

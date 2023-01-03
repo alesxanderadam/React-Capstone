@@ -1,8 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { PageConstant } from '../../Commons/page.constant';
-import { LoginModel } from '../../models/login.modal';
-import { loginApi } from '../../redux/Reducers/loginReducer';
+import { loginApi, loginFacebookApi } from '../../redux/Reducers/loginReducer';
 import { Button, Form, Input } from 'antd';
 import { FacebookOutlined } from "@ant-design/icons"
 import FacebookLogin from 'react-facebook-login'
@@ -18,6 +17,10 @@ export const Login = () => {
     };
     const responseFacebook = (responseFacebook) => {
         console.log(responseFacebook)
+        const action = loginFacebookApi(responseFacebook.accessToken)
+        if (responseFacebook?.accessToken) {
+            dispatch(action)
+        }
     }
     const onSubmit = (login) => {
         const action = loginApi(login)
@@ -40,19 +43,17 @@ export const Login = () => {
                     <NavLink className='text-register' to={`${PageConstant.register}`}>Register now ?</NavLink>
                     <Button className='btn-login ms-3' htmlType='submit' type="primary">Login</Button>
                 </Form.Item>
-                {/* <Form.Item>
-                    <a className='py-3 login-facebook'>
-                        <FacebookOutlined className='me-2 icon-facebook' style={{ fontSize: "40px" }} />
-                        <FacebookLogin
-                            appId="874608447300024"
-                            autoLoad={true}
-                            fields="name,email,picture"
-                            callback={responseFacebook}
-                            cssClass="btn"
-                            icon="fa-facebook"
-                        />
-                    </a>
-                </Form.Item> */}
+                <a className='py-3 login-facebook'>
+                    <FacebookOutlined className='me-2 icon-facebook' style={{ fontSize: "40px" }} />
+                    <FacebookLogin
+                        appId="1702613590192841"
+                        autoLoad={false}
+                        fields="name,email,picture"
+                        callback={responseFacebook}
+                        cssClass="btn"
+                        icon="fa-facebook"
+                    />
+                </a>
             </Form>
         </div>
 
