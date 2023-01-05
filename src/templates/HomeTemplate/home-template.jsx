@@ -7,6 +7,8 @@ import { ACCESS_TOKEN, removeStore, USER_LOGIN, USER_PROFILE } from '../../util/
 import './HomeTemplate.scss'
 export const HomeTemplate = () => {
     const { Login } = useSelector(state => state.loginReducer)
+    const { quantity } = useSelector(state => state.productReducer)
+
     const navigate = useNavigate()
     const renderLoginButton = () => {
         if (Login) {
@@ -36,9 +38,11 @@ export const HomeTemplate = () => {
                                 <h3 className='search ms-2'>Search</h3>
                             </NavLink>
                         </div>
-                        <div className='d-flex align-items-center text-white mx-2'>
-                            <h2 className='icon-shopping'>🛒</h2>
-                            <h3 className='amount'>(1)</h3>
+                        <div>
+                            <NavLink style={{ textDecoration: 'none' }} to={`${PageConstant.cart}`} className='d-flex align-items-center text-white'>
+                                <h2 className='icon-shopping'>🛒</h2>
+                                <h3 className='amount'>({quantity})</h3>
+                            </NavLink>
                         </div>
                         {renderLoginButton()}
                         <NavLink style={{ textDecoration: 'none' }} to={`${PageConstant.register}`}><h5 className='login mx-2'>Register</h5></NavLink>

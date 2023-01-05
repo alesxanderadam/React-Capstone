@@ -45,7 +45,7 @@ export const Home = () => {
 
     const renderCardProduct = () => {
         if (productData.length !== 0) {
-            return displayPage.map((prod, index) => {
+            return displayPage?.map((prod, index) => {
                 return (
                     <div className="col-xl-3 col-md-5 col-sm-12" key={index}>
                         <Card product={prod} key={index} />

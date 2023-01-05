@@ -1,34 +1,14 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from "react-redux"
-import { Space, Table, Tag, InputNumber, Select } from 'antd';
+import { useState } from 'react'
+import { useSelector } from "react-redux"
+import { Space, Table, InputNumber, Avatar } from 'antd';
 import './cart.scss'
-import { DeleteOutlined, EditOutlined, SettingOutlined } from '@ant-design/icons';
-import { addProductToCartAction } from '../../redux/Reducers/productReducer'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 const Cart = () => {
-  const [quantity,setQuantity] = useState(1)
-const onChange = (value) => {
-  setQuantity(value)
-
-};
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '1',
-      id: '1',
-      img: '',
-      name: 'product1',
-      price: '1000',
-      quantity: quantity
-    },
-    {
-      key: '2',
-      id: '2',
-      img: '',
-      name: 'product2',
-      price: '2000',
-      quantity: quantity
-    },
-  ])
-
+  const { productCart } = useSelector(state => state.productReducer)
+  // const [soluong, setSoluong] = useState(productCart.quantity)
+  const onChange = (value) => {
+    console.log(value)
+  }
   const columns = [
     {
       title: 'id',
@@ -37,8 +17,16 @@ const onChange = (value) => {
     },
     {
       title: 'img',
-      dataIndex: 'img',
       key: '2',
+      render: (data) => (
+        <>
+          {
+            <Avatar.Group>
+              <Avatar className="shape-avatar" shape="square" size={80} src={data.image}></Avatar>
+            </Avatar.Group>
+          }
+        </>
+      ),
     },
     {
       title: 'name',
@@ -52,11 +40,10 @@ const onChange = (value) => {
     },
     {
       title: 'quantity',
-      dataIndex: 'quantity',
-      render: (record) => {
+      render: (data) => {
         return <>
           <Space>
-            <InputNumber size="small" min={1} max={100000} defaultValue={1} onChange={onChange} />
+            <InputNumber onChange={onChange} value={data.quantity} size="small" min={1} max={100000} />
           </Space>
         </>
       }
@@ -67,7 +54,7 @@ const onChange = (value) => {
       render: (data) => (
         <>
           {
-            data.quantity * data.price
+            data.price * data.quantity
           }
         </>
       ),
@@ -77,7 +64,7 @@ const onChange = (value) => {
       title: 'action',
       render: (record) => {
         return <>
-          <EditOutlined></EditOutlined>
+          <EditOutlined />
           <DeleteOutlined style={{ color: "red", marginLeft: 12 }}></DeleteOutlined>
         </>
       }
@@ -85,7 +72,7 @@ const onChange = (value) => {
   ];
   return (
     <>
-      <Table dataSource={dataSource} columns={columns} />;
+      <Table dataSource={productCart} columns={columns} />;
     </>
   )
 }

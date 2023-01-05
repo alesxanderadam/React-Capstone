@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
+import { getStoreJson, PRODUCT_CARD, saveStoreJson } from '../../util/config';
 
 const productCartCheck = () => {
-    if (JSON.parse(localStorage.getItem('productCart')) === null) {
-        return []
+    if (getStoreJson(PRODUCT_CARD)) {
+        return getStoreJson(PRODUCT_CARD)
     }
-    return JSON.parse(localStorage.getItem('productCart'))
+    return []
 }
 
 const initialState = {
