@@ -7,6 +7,7 @@ export const ACCESS_TOKEN = "accessToken";
 export const USER_LOGIN = "userLogin";
 export const USER_PROFILE = "userProfile";
 export const PRODUCT_CARD = "productCart";
+export const TOTAL_QUATITY = "total_quatity";
 
 export const { saveStore, saveStoreJson, getStore, getStoreJson, removeStore } = {
     saveStore: (name, stringValue) => {

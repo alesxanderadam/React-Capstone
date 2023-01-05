@@ -1,12 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
-import { getStoreJson, PRODUCT_CARD, saveStoreJson } from '../../util/config';
+import { getStoreJson, PRODUCT_CARD, saveStore, saveStoreJson, TOTAL_QUATITY } from '../../util/config';
 
 const productCartCheck = () => {
     if (getStoreJson(PRODUCT_CARD)) {
         return getStoreJson(PRODUCT_CARD)
     }
-    return []
+    return [];
+}
+
+const quatityCheck = () => {
+    if (getStoreJson(TOTAL_QUATITY)) {
+        return getStoreJson(TOTAL_QUATITY)
+    }
+    return 0;
 }
 
 const initialState = {
@@ -17,7 +24,7 @@ const initialState = {
     productDetail: [],
     productCart: productCartCheck(),
     totalAmount: 0,
-    quantity: 0
+    quantity: quatityCheck()
 }
 
 const productReducer = createSlice({
@@ -31,11 +38,11 @@ const productReducer = createSlice({
             state.productDetail = action.payload;
         },
         addProductToCartAction: (state, action) => {
-
             // Check if item exist
             const isExisted = state.productCart?.find(item => item.id === action.payload.id);
             // plus 1 product
             state.quantity++;
+            saveStore(TOTAL_QUATITY, state.quantity)
             if (!isExisted) {
                 state.productCart?.push({
                     id: action.payload.id,
@@ -45,10 +52,14 @@ const productReducer = createSlice({
                     quantity: 1,
                     totalPrice: action.payload.price,
                 })
+                saveStoreJson(PRODUCT_CARD, [...state.productCart])
+                console.log("if", [...state.productCart])
             }
             else {
                 isExisted.quantity++;
                 isExisted.totalPrice = Number(isExisted.totalPrice) + Number(action.payload.price)
+                saveStoreJson(PRODUCT_CARD, [...state.productCart])
+                console.log("if", [...state.productCart])
             }
 
             //  Calculate the total amount of the products in the cart
@@ -66,7 +77,7 @@ export const { getAllProductApi, getProductByIdAction, addProductToCartAction } 
 
 export default productReducer.reducer
 
-// 
+
 export const getProductApi = () => {
     return async (dispatch) => {
         const res = await axios({

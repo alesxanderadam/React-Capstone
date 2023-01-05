@@ -5,10 +5,12 @@ import '../../assets/scss/card-product.scss'
 import { history } from '../../../src/App';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAddingCartProduct } from '../../redux/Reducers/productReducer';
+import { PageConstant } from '../../Commons/page.constant';
 
 
 const Card = ({ product }) => {
   const { Login } = useSelector(state => state.loginReducer)
+  const { productCart } = useSelector(state => state.productReducer)
   const { image, price, name, id } = product
   const dispatch = useDispatch()
   const handleAddToCart = () => {
@@ -17,10 +19,10 @@ const Card = ({ product }) => {
         id,
         name,
         image,
-        price
+        price,
       }))
     } else {
-      history.push('/login')
+      history.push(`${PageConstant.login}`)
     }
   }
 
