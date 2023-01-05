@@ -78,7 +78,6 @@ export const Profile = () => {
                     {data.map((item) => {
                         return (
                             <Tag color="default">{item.quantity}</Tag>
-
                         )
                     })}
                 </>
