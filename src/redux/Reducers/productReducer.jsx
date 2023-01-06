@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
+import { act } from 'react-dom/test-utils';
 import { getStoreJson, PRODUCT_CARD, saveStore, saveStoreJson, TOTAL_QUATITY } from '../../util/config';
 
 const productCartCheck = () => {
@@ -18,8 +19,8 @@ const quatityCheck = () => {
 
 const initialState = {
     arrProduct: [
-        { id: 1, name: 'product1', image: 'https://i.pravatar.cc?u=1', price: 1000 },
-        { id: 2, name: 'product2', image: 'https://i.pravatar.cc?u=2', price: 2000 },
+        { id: 1, name: 'product1', image: 'https://i.pravatar.cc?u=1', price: 1000},
+        { id: 2, name: 'product2', image: 'https://i.pravatar.cc?u=2', price: 2000},
     ],
     productDetail: [],
     productCart: productCartCheck(),
@@ -36,6 +37,9 @@ const productReducer = createSlice({
         },
         getProductByIdAction: (state, action) => {
             state.productDetail = action.payload;
+        },
+        updateTotalCart :(state,action) =>{
+            state.quantity = action.payload;
         },
         addProductToCartAction: (state, action) => {
             // Check if item exist
@@ -61,7 +65,6 @@ const productReducer = createSlice({
                 saveStoreJson(PRODUCT_CARD, [...state.productCart])
                 console.log("if", [...state.productCart])
             }
-
             //  Calculate the total amount of the products in the cart
             state.totalAmount = state.productCart?.reduce(
                 (total, item) => total + Number(item.price) * Number(item.quantity),
@@ -73,11 +76,20 @@ const productReducer = createSlice({
     }
 });
 
-export const { getAllProductApi, getProductByIdAction, addProductToCartAction } = productReducer.actions
+export const { getAllProductApi, getProductByIdAction, addProductToCartAction,updateTotalCart } = productReducer.actions
 
 export default productReducer.reducer
 
-
+export const updateCartTotal = (number) =>{
+    return async(dispatch) =>{
+        try {
+            dispatch(updateTotalCart(number))
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+}
 export const getProductApi = () => {
     return async (dispatch) => {
         const res = await axios({

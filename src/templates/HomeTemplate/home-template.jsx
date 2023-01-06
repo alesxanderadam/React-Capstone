@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import { Nav, Navbar } from 'react-bootstrap'
 import Container from 'react-bootstrap/esm/Container'
-import { useSelector } from 'react-redux'
+import { useSelector} from 'react-redux'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { PageConstant } from '../../Commons/page.constant'
 import { ACCESS_TOKEN, removeStore, USER_LOGIN, USER_PROFILE } from '../../util/config'
@@ -8,7 +9,7 @@ import './HomeTemplate.scss'
 export const HomeTemplate = () => {
     const { Login } = useSelector(state => state.loginReducer)
     const { quantity } = useSelector(state => state.productReducer)
-
+    const [quantityProd,setQuantityProd] = useState(quantity)
     const navigate = useNavigate()
     const renderLoginButton = () => {
         if (Login) {
@@ -45,7 +46,7 @@ export const HomeTemplate = () => {
                             </NavLink>
                         </div>
                         {renderLoginButton()}
-                        <NavLink style={{ textDecoration: 'none' }} to={`${PageConstant.register}`}><h5 className='login mx-2'>Register</h5></NavLink>
+                        <NavLink style={{ textDecoration: 'none' }} to={`${PageConstant.register}`}><h5 className='login mx-2'>{Login ? "" : "Register"}</h5></NavLink>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

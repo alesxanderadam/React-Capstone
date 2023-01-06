@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { Space, Table, InputNumber, Avatar } from 'antd';
+import { Space, Table, InputNumber, Avatar,Button } from 'antd';
 import './cart.scss'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import {PRODUCT_CARD,getStore,getStoreJson,removeStore, saveStoreJson, TOTAL_QUATITY, saveStore} from '../../util/config'
-import Item from 'antd/es/list/Item'
-import { getAddingCartProduct } from '../../redux/Reducers/productReducer';
+import {PRODUCT_CARD,getStore,getStoreJson,removeStore, saveStoreJson, TOTAL_QUATITY, saveStore, USER_LOGIN, http} from '../../util/config'
+import { updateCartTotal } from '../../redux/Reducers/productReducer';
+import { orderProductApi } from '../../redux/Reducers/cartReduce';
+import { useNavigate } from 'react-router-dom';
+import { history } from '../../App';
+import { PageConstant } from '../../Commons/page.constant';
+
 const Cart = () => {
   const dispatch = useDispatch()
     const { productCart } = useSelector(state => state.productReducer)
@@ -15,11 +19,42 @@ const Cart = () => {
     }
     const onDeleteCart =(idClick) => {
       if (getStoreJson(PRODUCT_CARD)){
+        let quantityProd = getStoreJson(PRODUCT_CARD).filter(x => x.id === idClick)
         let prod = getStoreJson(PRODUCT_CARD).filter(x => x.id !== idClick)
-        saveStore(TOTAL_QUATITY,getStoreJson(TOTAL_QUATITY) - 1)
+        // console.log(quantityProd[0].quantity)
+        // console.log(prod)
+        saveStore(TOTAL_QUATITY,getStoreJson(TOTAL_QUATITY) - quantityProd[0].quantity)
+        console.log(getStoreJson(TOTAL_QUATITY))
+        dispatch(updateCartTotal(getStoreJson(TOTAL_QUATITY)))
         setCart(prod)
-        saveStoreJson(PRODUCT_CARD,prod )
+        saveStoreJson(PRODUCT_CARD,prod)
       }
+    }
+    const checkOutCart = async () =>{
+        const email = getStoreJson(USER_LOGIN).email
+        // const orderProduct = orderProductApi((getStoreJson(PRODUCT_CARD)),email)
+        // console.log((getStoreJson(PRODUCT_CARD)),email)
+        // dispatch(orderProduct)
+        //
+        const orderDetail = getStoreJson(PRODUCT_CARD).map((cart) => {
+            return {
+                productId: cart.id,
+                quantity: cart.quantity
+            }
+        }) 
+            const userLogin = getStoreJson(USER_LOGIN)
+            const payload = {
+                orderDetail,
+                email: userLogin.email
+            }
+            const result = await http.post('/api/Users/order', payload)
+            if(result){
+                alert("Oder Thanh Cong")
+                removeStore(PRODUCT_CARD)
+                removeStore(TOTAL_QUATITY)
+                history.push('/')
+                window.location.reload()
+            }
     }
     const columns = [
         {
@@ -86,7 +121,10 @@ const Cart = () => {
     ];
     return (
         <>
-            <Table dataSource={cart} columns={columns} />;
+            <Table dataSource={cart} columns={columns} />
+            <Button onClick={() =>{
+                checkOutCart()
+            }} className='btn-checkout'>Thanh toán</Button>
         </>
     )
 }

@@ -11,7 +11,7 @@ import { PageConstant } from '../../Commons/page.constant';
 const Card = ({ product }) => {
   const { Login } = useSelector(state => state.loginReducer)
   const { productCart } = useSelector(state => state.productReducer)
-  const { image, price, name, id } = product
+  const { image, price, name, id,quantity } = product
   const dispatch = useDispatch()
   const handleAddToCart = () => {
     if (Login) {
