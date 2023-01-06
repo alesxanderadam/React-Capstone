@@ -145,7 +145,7 @@ export const Profile = () => {
             dispatch(getProfile)
         }
         form.setFieldsValue(Profile)
-    console.log(arrProduct)
+        console.log(arrProduct)
     }, [Profile.ordersHistory])
 
     return (
