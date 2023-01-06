@@ -6,7 +6,7 @@ import Search from './pages/Search/Search';
 import { Detail } from './pages/Detail/Detail';
 import { PageConstant } from './Commons/page.constant';
 import { Page404 } from './Page404/Page404';
-import { Profile } from './pages/Profile/profile';
+import Profile from './pages/Profile/profile';
 import Cart from './pages/Cart/Cart';
 import { Login } from './pages/Login/login';
 import { ACCESS_TOKEN, getStore } from './util/config';

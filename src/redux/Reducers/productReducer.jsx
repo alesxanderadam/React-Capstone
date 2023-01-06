@@ -18,8 +18,8 @@ const quatityCheck = () => {
 
 const initialState = {
     arrProduct: [
-        { id: 1, name: 'product1', image: 'https://i.pravatar.cc?u=1', price: 1000},
-        { id: 2, name: 'product2', image: 'https://i.pravatar.cc?u=2', price: 2000},
+        { id: 1, name: 'product1', image: 'https://i.pravatar.cc?u=1', price: 1000 },
+        { id: 2, name: 'product2', image: 'https://i.pravatar.cc?u=2', price: 2000 },
     ],
     productDetail: [],
     productCart: productCartCheck(),
@@ -37,7 +37,7 @@ const productReducer = createSlice({
         getProductByIdAction: (state, action) => {
             state.productDetail = action.payload;
         },
-        updateTotalCart :(state,action) =>{
+        updateTotalCart: (state, action) => {
             state.quantity = action.payload;
         },
         addProductToCartAction: (state, action) => {
@@ -80,16 +80,16 @@ const productReducer = createSlice({
     }
 });
 
-export const { getAllProductApi, getProductByIdAction, addProductToCartAction,updateTotalCart  getListProductSearchAction, getListProductSearchByPriceAction } = productReducer.actions
+export const { getAllProductApi, getProductByIdAction, addProductToCartAction, updateTotalCart, getListProductSearchAction, getListProductSearchByPriceAction } = productReducer.actions
 
 export default productReducer.reducer
 
-export const updateCartTotal = (number) =>{
-    return async(dispatch) =>{
+export const updateCartTotal = (number) => {
+    return async (dispatch) => {
         try {
             dispatch(updateTotalCart(number))
         }
-        catch(error){
+        catch (error) {
             console.log(error)
         }
     }
