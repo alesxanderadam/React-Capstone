@@ -1,13 +1,25 @@
 import { useState } from 'react'
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Space, Table, InputNumber, Avatar } from 'antd';
 import './cart.scss'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import {PRODUCT_CARD,getStore,getStoreJson,removeStore, saveStoreJson, TOTAL_QUATITY, saveStore} from '../../util/config'
+import Item from 'antd/es/list/Item'
+import { getAddingCartProduct } from '../../redux/Reducers/productReducer';
 const Cart = () => {
+  const dispatch = useDispatch()
     const { productCart } = useSelector(state => state.productReducer)
-    // const [soluong, setSoluong] = useState(productCart.quantity)
+    const [cart, setCart] = useState(productCart)
     const onChange = (value) => {
         console.log(value)
+    }
+    const onDeleteCart =(idClick) => {
+      if (getStoreJson(PRODUCT_CARD)){
+        let prod = getStoreJson(PRODUCT_CARD).filter(x => x.id !== idClick)
+        saveStore(TOTAL_QUATITY,getStoreJson(TOTAL_QUATITY) - 1)
+        setCart(prod)
+        saveStoreJson(PRODUCT_CARD,prod )
+      }
     }
     const columns = [
         {
@@ -65,14 +77,16 @@ const Cart = () => {
             render: (record) => {
                 return <>
                     <EditOutlined />
-                    <DeleteOutlined style={{ color: "red", marginLeft: 12 }}></DeleteOutlined>
+                    <DeleteOutlined onClick={() => {
+                     onDeleteCart(record.id);
+                    }} style={{ color: "red", marginLeft: 12 }}></DeleteOutlined>
                 </>
             }
         },
     ];
     return (
         <>
-            <Table dataSource={productCart} columns={columns} />;
+            <Table dataSource={cart} columns={columns} />;
         </>
     )
 }
