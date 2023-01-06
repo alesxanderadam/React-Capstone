@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
+import { http } from '../../util/config';
 
 const productCartCheck = () => {
     if (JSON.parse(localStorage.getItem('productCart')) === null) {
@@ -55,13 +56,18 @@ const productReducer = createSlice({
                 (total, item) => total + Number(item.price) * Number(item.quantity),
                 0
             )
+        },
+        getListProductSearchAction: (state, action) => {
+            state.keyword = action.payload
+        },
+        getListProductSearchByPriceAction: (state, action) => {
+            const FindProductByPrice = state.keyword.filter(arrProduct => arrProduct.price === action.payload)
+            state.keyword = FindProductByPrice
         }
-
-
     }
 });
 
-export const { getAllProductApi, getProductByIdAction, addProductToCartAction } = productReducer.actions
+export const { getAllProductApi, getProductByIdAction, addProductToCartAction, getListProductSearchAction, getListProductSearchByPriceAction } = productReducer.actions
 
 export default productReducer.reducer
 
@@ -99,6 +105,21 @@ export const getAddingCartProduct = (product) => {
         catch (error) {
             console.log(error)
         }
+    }
+}
+
+export const getListProductSearchApi = (keyword) => {
+    return async dispatch => {
+        const result = await http.get(`/api/Product?keyword=${keyword}`)
+        const action = getListProductSearchAction(result.data.content)
+        dispatch(action)
+    }
+}
+
+export const getListProductSearchByPriceApi = (price) => {
+    return async (dispatch) => {
+        const action = getListProductSearchByPriceAction(price)
+        dispatch(action)
     }
 }
 
