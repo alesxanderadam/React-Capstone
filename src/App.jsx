@@ -9,7 +9,6 @@ import { Page404 } from './Page404/Page404';
 import Profile from './pages/Profile/profile';
 import Cart from './pages/Cart/Cart';
 import { Login } from './pages/Login/login';
-import { ACCESS_TOKEN, getStore } from './util/config';
 import { createBrowserHistory } from 'history';
 import './assets/scss/style.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,7 +22,7 @@ function App() {
                         <Route index element={<Home />}></Route>
                         <Route path={`${PageConstant.cart}`} element={<Cart />}></Route>
                         <Route path={`${PageConstant.login}`} element={<Login />}></Route>
-                        <Route path={`${PageConstant.profile}`} element={getStore(ACCESS_TOKEN) ? <Profile /> : <Login />}></Route>
+                        <Route path={`${PageConstant.profile}`} element={<Profile />}></Route>
                         <Route path={`${PageConstant.register}`} element={<Register />}></Route>
                         <Route path={`${PageConstant.search}`} element={<Search />}></Route>
                         <Route path={`${PageConstant.detail}/:id`} element={<Detail />}></Route>

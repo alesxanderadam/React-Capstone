@@ -20,10 +20,10 @@ const loginReducer = createSlice({
             state.Profile = action.payload
         },
         editProfileAciton: (state, action) => {
-            state = action.payload
+            state.Profile = action.payload
         },
         deleteIdProductAction: (state, action) => {
-            state = action.payload
+            state.Profile = action.payload
         },
         loginFacebookAction: (state, action) => {
             state = action.payload
@@ -44,7 +44,7 @@ export const loginApi = (userLogin) => {
             saveStore(ACCESS_TOKEN, res.data.content.accessToken);
             const actionGetProfile = getProfileApi();
             dispatch(actionGetProfile);
-            history.push(`${PageConstant.profile}`);
+            history.push('/');
         }).catch((err) => {
             message.error(`${err.response.data.message}`)
         })
@@ -57,7 +57,7 @@ export const getProfileApi = () => {
             const action = getProfileAction(res.data.content)
             dispatch(action);
             saveStoreJson(USER_PROFILE, res.data.content);
-            window.location.reload();
+            // window.location.reload();
         }).catch((err) => {
             console.log(err)
         })

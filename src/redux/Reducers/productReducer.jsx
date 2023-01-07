@@ -24,7 +24,8 @@ const initialState = {
     productDetail: [],
     productCart: productCartCheck(),
     totalAmount: 0,
-    quantity: quatityCheck()
+    quantity: quatityCheck(),
+    productsFavorite: [],
 }
 
 const productReducer = createSlice({
@@ -76,11 +77,14 @@ const productReducer = createSlice({
         getListProductSearchByPriceAction: (state, action) => {
             const FindProductByPrice = state.keyword.filter(arrProduct => arrProduct.price === action.payload)
             state.keyword = FindProductByPrice
+        },
+        getproductfavoriteAction: (state, action) => {
+            state.productsFavorite = action.payload
         }
     }
 });
 
-export const { getAllProductApi, getProductByIdAction, addProductToCartAction, updateTotalCart, getListProductSearchAction, getListProductSearchByPriceAction } = productReducer.actions
+export const { getAllProductApi, getProductByIdAction, addProductToCartAction, updateTotalCart, getListProductSearchAction, getListProductSearchByPriceAction, getproductfavoriteAction } = productReducer.actions
 
 export default productReducer.reducer
 
@@ -142,6 +146,19 @@ export const getListProductSearchByPriceApi = (price) => {
     return async (dispatch) => {
         const action = getListProductSearchByPriceAction(price)
         dispatch(action)
+    }
+}
+
+export const getproductfavoriteApi = () => {
+    return async dispatch => {
+        try {
+            const result = await http.get(`/api/Users/getproductfavorite`)
+            const action = getproductfavoriteAction(result.data.content)
+            dispatch(action)
+        } catch (err) {
+            console.log(err)
+            return;
+        }
     }
 }
 
