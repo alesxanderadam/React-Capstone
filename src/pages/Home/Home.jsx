@@ -12,7 +12,7 @@ import { PageConstant } from "../../Commons/page.constant";
 
 export const Home = () => {
     const { arrProduct } = useSelector(state => state.productReducer);
-    const [productData, setProductData] = useState(arrProduct);
+    // const [arrProduct, setarrProduct] = useState(arrProduct);
     const [pageNumber, setPageNumber] = useState(0);
 
     const contentStyle = {
@@ -31,13 +31,13 @@ export const Home = () => {
     const vistedPage = pageNumber * productPerPage;
     // hiển thị trang sản phẩm : danh sách sản phẩm từ vị trí (0, 9) nếu là trang 1
     // hoặc từ (10, 19) nếu là trang 2
-    const displayPage = productData.slice(
+    const displayPage = arrProduct.slice(
         vistedPage,
         vistedPage + productPerPage
     );
 
     // hiển thị số phân trang
-    const pageCount = Math.ceil(productData.length / productPerPage);
+    const pageCount = Math.ceil(arrProduct.length / productPerPage);
 
     // đổi trang hiển thị
     // selected tương ứng: trang 1: seleted 0, trang 2: selected: 1
@@ -46,7 +46,7 @@ export const Home = () => {
     };
 
     const renderCardProduct = () => {
-        if (productData.length !== 0) {
+        if (arrProduct.length !== 0) {
             return displayPage?.map((prod, index) => {
                 return (
                     <div className="col-xl-3 col-md-5 col-sm-12" key={index}>
@@ -60,8 +60,8 @@ export const Home = () => {
 
     useEffect(() => {
         getAllProductApi();
-        setProductData(arrProduct);
-    }, [arrProduct])
+        // setarrProduct(arrProduct);
+    }, [])
 
     return (
         <div>

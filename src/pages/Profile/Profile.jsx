@@ -35,9 +35,9 @@ const Profile = () => {
             width: 250,
             render: (data) => (
                 <>
-                    {data.map((tag) => {
+                    {data.map((tag, index) => {
                         return (
-                            <Avatar.Group>
+                            <Avatar.Group key={index}>
                                 <Avatar className="shape-avatar" shape="square" size={80} src={tag.image}></Avatar>
                             </Avatar.Group>
                         )
@@ -51,9 +51,9 @@ const Profile = () => {
             dataIndex: 'orderDetail',
             render: (data) => (
                 <>
-                    {data.map((item) => {
+                    {data.map((item, index) => {
                         return (
-                            item.name + ' , '
+                            <span key={index}>{item.name + ' , '}</span>
                         )
                     })}
                 </>
@@ -65,9 +65,9 @@ const Profile = () => {
             dataIndex: 'orderDetail',
             render: (data) => (
                 <>
-                    {data.map((item) => {
+                    {data.map((item, index) => {
                         return (
-                            item.price + ' , '
+                            <span key={index}>{item.price + ' , '}</span>
                         )
                     })}
                 </>
@@ -79,9 +79,9 @@ const Profile = () => {
             dataIndex: 'orderDetail',
             render: (data) => (
                 <>
-                    {data.map((item) => {
+                    {data.map((item, index) => {
                         return (
-                            <Tag color="default">{item.quantity}</Tag>
+                            <Tag color="default" key={index}>{item.quantity}</Tag>
                         )
                     })}
                 </>
@@ -93,9 +93,9 @@ const Profile = () => {
             dataIndex: 'orderDetail',
             render: (data) => (
                 <>
-                    {data.map((item) => {
+                    {data.map((item, index) => {
                         return (
-                            `${utils.$number.numberFormatter(item.price * item.quantity)}` + ' , '
+                            <span key={index}>{`${utils.$number.numberFormatter(item.price * item.quantity)}` + ' , '}</span>
                         )
                     })}
                 </>
@@ -119,14 +119,16 @@ const Profile = () => {
 
     const columnFavouriteProduct = [
         {
-            title: 'id',
+            title: 'Id',
             key: 'id',
-            dataIndex: 'id'
+            dataIndex: 'id',
+            width: "30%"
         },
         {
             key: 'image',
             title: 'Image',
             dataIndex: 'image',
+            width: "30%",
             render: (data) => (
                 <>
                     <Avatar.Group>
@@ -139,6 +141,7 @@ const Profile = () => {
             key: 'name',
             title: 'Name',
             dataIndex: 'name',
+            width: "20%"
         },
     ];
 
@@ -174,7 +177,7 @@ const Profile = () => {
             dispatch(getProfile)
         }
         form.setFieldsValue(Profile)
-    }, [Profile])
+    }, [])
     return (
         <>
             <div className="title-component my-5">
@@ -234,7 +237,7 @@ const Profile = () => {
                             </div>
                         </div>
                         <div className="tab-pane " id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <Table columns={columnFavouriteProduct} dataSource={arrayProductFavorite}></Table>
+                            <Table columns={columnFavouriteProduct} dataSource={arrayProductFavorite} />
                         </div>
                     </div>
                 </div>

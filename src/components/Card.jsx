@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import '../assets/scss/card-product.scss'
 import { history } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAddingCartProduct } from '../redux/Reducers/productReducer';
+import { getAddingCartProduct, productsUserLikeApi } from '../redux/Reducers/productReducer';
 import { PageConstant } from '../Commons/page.constant';
 
 
@@ -27,6 +27,13 @@ const Card = ({ product }) => {
   return (
     <div className="card mt-3" style={{ height: '500px' }}>
       <div className="card__body">
+        <i className="fa-solid fa-heart position-absolute  end-0 mx-2 mt-2" style={{ fontSize: 20, color: 'red' }} onClick={() => {
+          dispatch(productsUserLikeApi(
+            {
+              productId: product.id
+            }
+          ))
+        }}></i>
         <img src={product.image} style={{ objectFit: 'contain' }} className="card__image" />
         <h5 className="card__title text-center">
           <Link className='text-dark' style={{ textDecoration: 'none' }} to={`/detail/${product.id}`}>{product.name}</Link>

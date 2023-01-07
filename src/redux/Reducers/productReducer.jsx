@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { message } from 'antd';
 import axios from 'axios';
 import { getStoreJson, PRODUCT_CARD, saveStore, saveStoreJson, TOTAL_QUATITY, http } from '../../util/config';
 
@@ -83,12 +84,14 @@ const productReducer = createSlice({
         },
         updateProductCartAfterDeleteAction: (state, action) => {
             state.productCart = action.payload
-
+        },
+        productsUserLikeAction: (state, action) => {
+            state.productsFavorite = action.payload
         }
     }
 });
 
-export const { getAllProductApi, getProductByIdAction, addProductToCartAction, updateTotalCart, getListProductSearchAction, getListProductSearchByPriceAction, getproductfavoriteAction, updateProductCartAfterDeleteAction } = productReducer.actions
+export const { getAllProductApi, getProductByIdAction, addProductToCartAction, updateTotalCart, getListProductSearchAction, getListProductSearchByPriceAction, getproductfavoriteAction, updateProductCartAfterDeleteAction, productsUserLikeAction } = productReducer.actions
 
 export default productReducer.reducer
 
@@ -170,5 +173,17 @@ export const getproductfavoriteApi = () => {
 export const updateProductCartAfterDeleteApi = (arrayProduct) => {
     return async dispatch => {
         dispatch(updateProductCartAfterDeleteAction(arrayProduct))
+    }
+}
+
+export const productsUserLikeApi = (idProduct) => {
+    return async dispatch => {
+        try {
+            const result = await http.get(`/api/Users/like?productId=${idProduct}`)
+            dispatch(productsUserLikeAction())
+            message.success(`${result.data.content}`)
+        } catch (err) {
+            message.error(`${err.content}`)
+        }
     }
 }

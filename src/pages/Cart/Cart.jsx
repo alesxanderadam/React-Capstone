@@ -4,14 +4,15 @@ import { Space, Table, InputNumber, Avatar, Button } from 'antd';
 import './cart.scss'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { PRODUCT_CARD, getStoreJson, removeStore, saveStoreJson, TOTAL_QUATITY, saveStore, USER_LOGIN, http } from '../../util/config'
-import { getAddingCartProduct, updateCartTotal, updateProductCartAfterDeleteApi } from '../../redux/Reducers/productReducer';
+import { updateCartTotal, updateProductCartAfterDeleteApi } from '../../redux/Reducers/productReducer';
 import { history } from '../../App';
+import { PageConstant } from '../../Commons/page.constant';
 
 const Cart = () => {
     const dispatch = useDispatch()
     const { productCart } = useSelector(state => state.productReducer)
     const [cart, setCart] = useState(productCart)
-
+    const { Login } = useSelector(state => state.loginReducer)
     const onChange = (value) => {
         console.log(value)
     }
@@ -114,7 +115,11 @@ const Cart = () => {
         <>
             <Table dataSource={cart} columns={columns} />
             <Button onClick={() => {
-                checkOutCart()
+                if (Login) {
+                    checkOutCart()
+                } else {
+                    history.push(`${PageConstant.login}`)
+                }
             }} className='btn-checkout'>Thanh toán</Button>
         </>
     )
