@@ -80,18 +80,23 @@ const productReducer = createSlice({
         },
         getproductfavoriteAction: (state, action) => {
             state.productsFavorite = action.payload
+        },
+        updateProductCartAfterDeleteAction: (state, action) => {
+            state.productCart = action.payload
+
         }
     }
 });
 
-export const { getAllProductApi, getProductByIdAction, addProductToCartAction, updateTotalCart, getListProductSearchAction, getListProductSearchByPriceAction, getproductfavoriteAction } = productReducer.actions
+export const { getAllProductApi, getProductByIdAction, addProductToCartAction, updateTotalCart, getListProductSearchAction, getListProductSearchByPriceAction, getproductfavoriteAction, updateProductCartAfterDeleteAction } = productReducer.actions
 
 export default productReducer.reducer
 
-export const updateCartTotal = (number) => {
+export const updateCartTotal = (product, number) => {
     return async (dispatch) => {
         try {
-            dispatch(updateTotalCart(number))
+            dispatch(updateTotalCart(product, number))
+
         }
         catch (error) {
             console.log(error)
@@ -162,3 +167,8 @@ export const getproductfavoriteApi = () => {
     }
 }
 
+export const updateProductCartAfterDeleteApi = (arrayProduct) => {
+    return async dispatch => {
+        dispatch(updateProductCartAfterDeleteAction(arrayProduct))
+    }
+}

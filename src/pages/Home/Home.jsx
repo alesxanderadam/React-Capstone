@@ -3,10 +3,12 @@ import { useDispatch } from "react-redux/es/exports";
 import { getProductApi } from "../../redux/Reducers/productReducer";
 import { Carousel } from 'antd';
 import { useSelector } from 'react-redux'
-import Card from "../../component/Card/Card";
+import Card from "../../components/Card";
 import '../../assets/scss/card-product.scss'
 import '../../assets/scss/pagination.scss'
 import ReactPaginate from "react-paginate";
+import { NavLink } from "react-router-dom";
+import { PageConstant } from "../../Commons/page.constant";
 
 export const Home = () => {
     const { arrProduct } = useSelector(state => state.productReducer);
@@ -74,7 +76,7 @@ export const Home = () => {
                                 <div>
                                     <h1>{item.name}</h1>
                                     <p>{item.description}</p>
-                                    <button className="btn btn-warning">Buy now</button>
+                                    <button className="btn btn-warning"><NavLink style={{ textDecoration: 'none', color: 'white' }} to={`${PageConstant.detail}/${item.id}`}>Buy now</NavLink></button>
                                 </div>
                             </div>
                         </div>

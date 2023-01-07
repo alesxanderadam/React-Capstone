@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { message } from 'antd';
 import { history } from '../../App';
-import { PageConstant } from '../../Commons/page.constant';
 import { ACCESS_TOKEN, getStoreJson, http, saveStore, saveStoreJson, USER_LOGIN, USER_PROFILE } from '../../util/config';
 
 const initialState = {
@@ -57,7 +56,7 @@ export const getProfileApi = () => {
             const action = getProfileAction(res.data.content)
             dispatch(action);
             saveStoreJson(USER_PROFILE, res.data.content);
-            // window.location.reload();
+            window.location.reload();
         }).catch((err) => {
             console.log(err)
         })
@@ -70,6 +69,7 @@ export const editProfileApi = (editProfile) => {
         await http.post('/api/Users/updateProfile', editProfile).then((res) => {
             const action = editProfileAciton(res.data.content);
             dispatch(action);
+            dispatch(getProfileApi())
             message.success("Update success");
         }).catch((err) => {
             message.error(`${err.response.data.content}`);

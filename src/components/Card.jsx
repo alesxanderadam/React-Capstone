@@ -1,17 +1,15 @@
 // library
-import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import '../../assets/scss/card-product.scss'
-import { history } from '../../../src/App';
+import '../assets/scss/card-product.scss'
+import { history } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAddingCartProduct } from '../../redux/Reducers/productReducer';
-import { PageConstant } from '../../Commons/page.constant';
+import { getAddingCartProduct } from '../redux/Reducers/productReducer';
+import { PageConstant } from '../Commons/page.constant';
 
 
 const Card = ({ product }) => {
   const { Login } = useSelector(state => state.loginReducer)
-  const { productCart } = useSelector(state => state.productReducer)
-  const { image, price, name, id,quantity } = product
+  const { image, price, name, id } = product
   const dispatch = useDispatch()
   const handleAddToCart = () => {
     if (Login) {
@@ -27,7 +25,7 @@ const Card = ({ product }) => {
   }
 
   return (
-    <div className="card" style={{ height: '500px' }}>
+    <div className="card mt-3" style={{ height: '500px' }}>
       <div className="card__body">
         <img src={product.image} style={{ objectFit: 'contain' }} className="card__image" />
         <h5 className="card__title text-center">

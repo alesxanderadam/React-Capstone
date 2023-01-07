@@ -12,20 +12,20 @@ const initialState = {
 }
 
 const cartReduce = createSlice({
-  name: "cartReduce",
-  initialState,
-  reducers: {
-    orderProductAction: (state, action) => {
-        state.arrProd.push({
-            productId: action.payload.id,
-            quantity: action.payload.quantity
-        })
-        state.email = action.payload.email
+    name: "cartReduce",
+    initialState,
+    reducers: {
+        orderProductAction: (state, action) => {
+            state.arrProd.push({
+                productId: action.payload.id,
+                quantity: action.payload.quantity
+            })
+            state.email = action.payload.email
+        }
     }
-  }
 });
 
-export const {orderProductAction} = cartReduce.actions
+export const { orderProductAction } = cartReduce.actions
 
 export default cartReduce.reducer
 

@@ -1,16 +1,26 @@
 import React, { useEffect } from 'react'
 import { Container, Row, Col } from "reactstrap";
 import { motion } from 'framer-motion'
-import { getProductByIdApi } from '../../redux/Reducers/productReducer';
+import { getAddingCartProduct, getProductByIdApi } from '../../redux/Reducers/productReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import '../../assets/scss/detail.css'
-import Card from '../../component/Card/Card';
+import Card from '../../components/Card';
+import { history } from '../../App';
+import { PageConstant } from '../../Commons/page.constant';
 export const Detail = () => {
     const { id } = useParams();
+    const { Login } = useSelector(state => state.loginReducer)
     const dispatch = useDispatch();
     const { productDetail } = useSelector((state) => state.productReducer);
 
+    const handleAddToCart = () => {
+        if (Login) {
+            dispatch(getAddingCartProduct(productDetail))
+        } else {
+            history.push(`${PageConstant.login}`)
+        }
+    }
     const getProductById = () => {
         dispatch(getProductByIdApi(id));
     };
@@ -47,6 +57,9 @@ export const Detail = () => {
                                 whileTap={{ scale: 1.2 }}
                                 className="btn btn-secondary fw-bold"
                                 style={{ margin: 0 }}
+                                onClick={() => {
+                                    handleAddToCart()
+                                }}
                             >
                                 Add to Cart
                             </motion.button>
@@ -58,7 +71,6 @@ export const Detail = () => {
                         <h2 className="related__Product-title">You might also like</h2>
                     </Col>
                     {
-                        // render Product Card
                         productDetail.relatedProducts?.map((product, index) => {
                             return (
                                 <Col

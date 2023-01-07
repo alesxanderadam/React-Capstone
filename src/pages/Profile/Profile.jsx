@@ -4,9 +4,10 @@ import { getStoreJson, USER_PROFILE } from "../../util/config";
 import { Avatar, Form, Input, Modal, Select, Table, Tag } from 'antd';
 import './profile.scss'
 import { Button } from "react-bootstrap";
-import { ExclamationCircleFilled } from "@ant-design/icons";
+import { DeleteOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { deleteIdProductApi, editProfileApi, getProfileApi } from "../../redux/Reducers/loginReducer";
 import { getproductfavoriteApi } from "../../redux/Reducers/productReducer";
+import utils from "../../util/format-number";
 const Profile = () => {
     const dispatch = useDispatch();
     const { Profile } = useSelector(state => state.loginReducer)
@@ -94,13 +95,13 @@ const Profile = () => {
                 <>
                     {data.map((item) => {
                         return (
-                            `${item.price * item.quantity} ` + ' , '
+                            `${utils.$number.numberFormatter(item.price * item.quantity)}` + ' , '
                         )
                     })}
                 </>
             ),
         }, {
-            key: 'deletePassword',
+            key: 'delete',
             title: 'Action',
             dataIndex: 'id',
             name: 'orderId',
@@ -108,7 +109,7 @@ const Profile = () => {
                 <>
                     <div className="ant-employed d-flex align-items-center justify-content-center">
                         <Button name="orderId" className="mx-2 table-action-button" onClick={() => { showDeleteConfirm(data); }} >
-                            Delete
+                            <DeleteOutlined style={{ fontSize: '14px', marginBottom: '5px' }} />
                         </Button>
                     </div>
                 </>
@@ -161,7 +162,6 @@ const Profile = () => {
             },
         });
     };
-
     const onSubmit = (values) => {
         const editProfile = editProfileApi(values)
         dispatch(editProfile)
@@ -174,8 +174,7 @@ const Profile = () => {
             dispatch(getProfile)
         }
         form.setFieldsValue(Profile)
-    }, [])
-
+    }, [Profile])
     return (
         <>
             <div className="title-component my-5">
@@ -231,7 +230,6 @@ const Profile = () => {
                     <div className="tab-content">
                         <div className="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <div className="product-table">
-                                <p className="title-table mb-0">+ Orders have been placed on 09 - 19 - 2020</p>
                                 <Table columns={columns} dataSource={arrProduct} />
                             </div>
                         </div>

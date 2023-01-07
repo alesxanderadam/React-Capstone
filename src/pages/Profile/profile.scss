@@ -19,14 +19,13 @@
         border-top: 0px !important;
         color: #CB0DC3;
 
+        &:hover {
+            color: #000000 !important;
+        }
 
         h1 {
             font-weight: 400 !important;
             font-size: 30px;
-
-            &:hover {
-                color: #000000 !important;
-            }
 
             &:active {
                 color: #CB0DC3 !important;

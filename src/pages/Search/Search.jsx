@@ -4,12 +4,13 @@ import { getListProductSearchApi, getListProductSearchByPriceApi } from '../../r
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { PageConstant } from '../../Commons/page.constant'
+import utils from '../../util/format-number'
 
 const Search = () => {
     const dispatch = useDispatch()
     const { keyword } = useSelector(state => state.productReducer)
     const onSearch = (value) => {
-        const getListProductSearch = getListProductSearchApi(value)
+        const getListProductSearch = getListProductSearchApi(utils.$common.converVietNamese(value))
         dispatch(getListProductSearch)
     }
     const handleChange = (value) => {
@@ -38,7 +39,7 @@ const Search = () => {
                     style={{ width: '200px' }}
                     onSearch={onSearch}
                     showSearch={true}
-                    placeholder="Select account"
+                    placeholder="Chose price you want"
                 >
                     {keyword?.map((item, index) => {
                         return <Select.Option key={index} value={item.price}>
@@ -54,7 +55,7 @@ const Search = () => {
                                 <img id="hinhAnh" src={prod.image} alt="" />
                                 <div className="card-body">
                                     <p id="name">{prod.name}</p>
-                                    <p id="mota">{prod.description.length > 80 ? prod.description.substr(0, 80) + '...' : prod.description}.</p>
+                                    <p id="mota">{prod.description.length > 50 ? prod.description.substr(0, 50) + '...' : prod.description}.</p>
                                     <div id="buttons" className="row">
                                         <NavLink className='col-6 btn btnBuyNow' to={`${PageConstant.detail}/${prod.id}`}>Buy now</NavLink>
                                         <button className='col-6 btn btnPrice'>{prod.price}$</button>
