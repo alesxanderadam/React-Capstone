@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from 'react'
-import { getStoreJson, USER_PROFILE } from "../../util/config";
 import { Avatar, Form, Input, Modal, Select, Table, Tag } from 'antd';
 import './profile.scss'
 import { Button } from "react-bootstrap";
@@ -12,8 +11,15 @@ const Profile = () => {
     const dispatch = useDispatch();
     const { Profile } = useSelector(state => state.loginReducer)
     const { productsFavorite } = useSelector(state => state.productReducer)
-    const arrayProductFavorite = productsFavorite.productsFavorite
-    const arrProduct = Profile.ordersHistory;
+    let arrProduct = [];
+    let arrayProductFavorite = [];
+    if (Profile) {
+        arrProduct = Profile.ordersHistory;
+    }
+    if (arrayProductFavorite) {
+        arrayProductFavorite = productsFavorite.productsFavorite
+    }
+
     const [form] = Form.useForm();
     const validateMessages = {
         required: '${label} is required!',
@@ -171,13 +177,12 @@ const Profile = () => {
     }
 
     useEffect(() => {
-        const getProfile = getProfileApi()
-        dispatch(getproductfavoriteApi())
-        if (!getStoreJson(USER_PROFILE)) {
-            dispatch(getProfile)
+        if (!Profile) {
+            dispatch(getProfileApi())
         }
+        dispatch(getproductfavoriteApi())
         form.setFieldsValue(Profile)
-    }, [])
+    }, [Profile])
     return (
         <>
             <div className="title-component my-5">

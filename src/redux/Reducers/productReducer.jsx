@@ -85,9 +85,6 @@ const productReducer = createSlice({
         updateProductCartAfterDeleteAction: (state, action) => {
             state.productCart = action.payload
         },
-        productsUserLikeAction: (state, action) => {
-            state.productsFavorite = action.payload
-        }
     }
 });
 
@@ -180,8 +177,7 @@ export const productsUserLikeApi = (idProduct) => {
     return async dispatch => {
         try {
             const result = await http.get(`/api/Users/like?productId=${idProduct}`)
-            dispatch(productsUserLikeAction())
-            message.success(`${result.data.content}`)
+            message.success(`${result.data.message}`)
         } catch (err) {
             message.error(`${err.content}`)
         }

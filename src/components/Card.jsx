@@ -5,10 +5,14 @@ import { history } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAddingCartProduct, productsUserLikeApi } from '../redux/Reducers/productReducer';
 import { PageConstant } from '../Commons/page.constant';
+import { memo } from 'react';
 
 
 const Card = ({ product }) => {
   const { Login } = useSelector(state => state.loginReducer)
+  const { productsFavorite } = useSelector(state => state.productReducer)
+  // let arrHearth = productsFavorite.productsFavorite
+  // 'fa-solid fa-heart position-absolute  end-0 mx-2 mt-2'
   const { image, price, name, id } = product
   const dispatch = useDispatch()
   const handleAddToCart = () => {
@@ -27,12 +31,8 @@ const Card = ({ product }) => {
   return (
     <div className="card mt-3" style={{ height: '500px' }}>
       <div className="card__body">
-        <i className="fa-solid fa-heart position-absolute  end-0 mx-2 mt-2" style={{ fontSize: 20, color: 'red' }} onClick={() => {
-          dispatch(productsUserLikeApi(
-            {
-              productId: product.id
-            }
-          ))
+        <i className={'fa-regular fa-heart position-absolute  end-0 mx-2 mt-2'} style={{ fontSize: 20, color: 'red' }} onClick={() => {
+          dispatch(productsUserLikeApi(product.id))
         }}></i>
         <img src={product.image} style={{ objectFit: 'contain' }} className="card__image" />
         <h5 className="card__title text-center">
@@ -47,5 +47,4 @@ const Card = ({ product }) => {
     </div>
   )
 }
-
-export default Card
+export default memo(Card)

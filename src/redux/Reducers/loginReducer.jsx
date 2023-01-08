@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { message } from 'antd';
 import { history } from '../../App';
+import { PageConstant } from '../../Commons/page.constant';
 import { ACCESS_TOKEN, getStoreJson, http, saveStore, saveStoreJson, USER_LOGIN, USER_PROFILE } from '../../util/config';
 
 const initialState = {
-    Login: getStoreJson(USER_LOGIN),
-    Profile: getStoreJson(USER_PROFILE),
+    Login: getStoreJson(USER_LOGIN) ? getStoreJson(USER_LOGIN) : null,
+    Profile: getStoreJson(USER_PROFILE) ? getStoreJson(USER_PROFILE) : null,
 }
 
 const loginReducer = createSlice({
@@ -14,9 +15,13 @@ const loginReducer = createSlice({
     reducers: {
         loginAction: (state, aciton) => {
             state.Login = aciton.payload
+            saveStoreJson(USER_LOGIN, aciton.payload);
+            saveStore(ACCESS_TOKEN, aciton.payload.accessToken);
+            history.push(`${PageConstant.profile}`);
         },
         getProfileAction: (state, action) => {
             state.Profile = action.payload
+            saveStoreJson(USER_PROFILE, action.payload);
         },
         editProfileAciton: (state, action) => {
             state.Profile = action.payload
@@ -36,31 +41,24 @@ export default loginReducer.reducer
 
 export const loginApi = (userLogin) => {
     return async dispatch => {
-        http.post('/api/Users/signin', userLogin).then((res) => {
-            const action = loginAction(res.data.content)
-            dispatch(action)
-            saveStoreJson(USER_LOGIN, res.data.content);
-            saveStore(ACCESS_TOKEN, res.data.content.accessToken);
-            const actionGetProfile = getProfileApi();
-            dispatch(actionGetProfile);
-            history.push('/');
-        }).catch((err) => {
+        try {
+            const result = await http.post('/api/Users/signin', userLogin)
+            return dispatch(loginAction(result.data.content))
+        } catch (err) {
             message.error(`${err.response.data.message}`)
-        })
+        }
     }
 }
 
 export const getProfileApi = () => {
     return async dispatch => {
-        await http.post('/api/Users/getProfile').then((res) => {
-            const action = getProfileAction(res.data.content)
-            dispatch(action);
-            saveStoreJson(USER_PROFILE, res.data.content);
-            window.location.reload();
-        }).catch((err) => {
+        try {
+            const result = await http.post('/api/Users/getProfile')
+            return dispatch(getProfileAction(result.data.content))
+        }
+        catch (err) {
             console.log(err)
-        })
-
+        }
     }
 }
 
