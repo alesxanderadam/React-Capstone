@@ -182,7 +182,7 @@ const Profile = () => {
         }
         dispatch(getproductfavoriteApi())
         form.setFieldsValue(Profile)
-    }, [Profile])
+    }, [Profile, arrProduct])
     return (
         <>
             <div className="title-component my-5">

@@ -1,41 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit'
-import axios from 'axios';
-import { act } from '@testing-library/react';
-import { result } from 'lodash';
+import { message } from 'antd';
+import { http } from '../../util/config';
 
 const initialState = {
-    item:{
-        message:"",
+    item: {
+        message: "",
     }
 }
 
 const registerReducer = createSlice({
-  name: 'userReducer',
-  initialState,
-  reducers: {
-    resUserAPI: (state,action) => {
-        state.item = action.payload
-    },
-  }
+    name: 'userReducer',
+    initialState,
+    reducers: {
+        resUserAPI: (state, action) => {
+            state.item = action.payload
+        },
+    }
 });
 
-export const {resUserAPI} = registerReducer.actions
+export const { resUserAPI } = registerReducer.actions
 
 export default registerReducer.reducer
 
-//call APi
-export const resUserApii =(item)=>{
+export const resUserApii = (item) => {
     return async (dispatch2) => {
-        try{
-            const result = await axios({
-                url:'https://shop.cyberlearn.vn/api/Users/signup',
-                method:'POST',
-                data: item
-            });
-            console.log(result);
+        try {
+            const result = await http.post('/api/Users/signup', item)
+            message.success(`${result.content}`)
         }
-        catch (err){
-            console.log(err)
+        catch (err) {
+            message.error(`${err.response.data.message}`)
         }
     }
 }

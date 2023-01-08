@@ -4,7 +4,7 @@ import { Space, Table, InputNumber, Avatar, Button } from 'antd';
 import './cart.scss'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { PRODUCT_CARD, getStoreJson, removeStore, saveStoreJson, TOTAL_QUATITY, saveStore, USER_LOGIN, http } from '../../util/config'
-import { updateCartTotal, updateProductCartAfterDeleteApi } from '../../redux/Reducers/productReducer';
+import { orderProductApi, updateCartTotal, updateProductCartAfterDeleteApi } from '../../redux/Reducers/productReducer';
 import { history } from '../../App';
 import { PageConstant } from '../../Commons/page.constant';
 
@@ -30,7 +30,7 @@ const Cart = () => {
     const checkOutCart = async () => {
         const orderDetail = getStoreJson(PRODUCT_CARD).map((cart) => {
             return {
-                productId: cart.id,
+                productId: String(cart.id),
                 quantity: cart.quantity
             }
         })
@@ -39,14 +39,7 @@ const Cart = () => {
             orderDetail,
             email: userLogin.email
         }
-        const result = await http.post('/api/Users/order', payload)
-        if (result) {
-            alert("Oder Thanh Cong")
-            removeStore(PRODUCT_CARD)
-            removeStore(TOTAL_QUATITY)
-            history.push('/')
-            window.location.reload()
-        }
+        dispatch(orderProductApi(payload))
     }
     const columns = [
         {

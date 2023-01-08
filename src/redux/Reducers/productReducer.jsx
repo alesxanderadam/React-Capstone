@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { message } from 'antd';
 import axios from 'axios';
-import { getStoreJson, PRODUCT_CARD, saveStore, saveStoreJson, TOTAL_QUATITY, http } from '../../util/config';
+import { history } from '../../App';
+import { getStoreJson, PRODUCT_CARD, saveStore, saveStoreJson, TOTAL_QUATITY, http, removeStore } from '../../util/config';
 
 const productCartCheck = () => {
     if (getStoreJson(PRODUCT_CARD)) {
@@ -72,6 +73,16 @@ const productReducer = createSlice({
                 0
             )
         },
+        orderProductAction: (state, action) => {
+            state.productCart.push({
+                productId: action.payload.id,
+                quantity: action.payload.quantity
+            })
+            removeStore(PRODUCT_CARD)
+            removeStore(TOTAL_QUATITY)
+            history.push('/')
+            window.location.reload()
+        },
         getListProductSearchAction: (state, action) => {
             state.keyword = action.payload
         },
@@ -88,7 +99,7 @@ const productReducer = createSlice({
     }
 });
 
-export const { getAllProductApi, getProductByIdAction, addProductToCartAction, updateTotalCart, getListProductSearchAction, getListProductSearchByPriceAction, getproductfavoriteAction, updateProductCartAfterDeleteAction, productsUserLikeAction } = productReducer.actions
+export const { getAllProductApi, getProductByIdAction, addProductToCartAction, updateTotalCart, getListProductSearchAction, getListProductSearchByPriceAction, getproductfavoriteAction, updateProductCartAfterDeleteAction, productsUserLikeAction, orderProductAction } = productReducer.actions
 
 export default productReducer.reducer
 
@@ -138,6 +149,20 @@ export const getAddingCartProduct = (product) => {
         }
     }
 }
+
+export const orderProductApi = (product) => {
+    return async dispatch => {
+        try {
+            const result = await http.post(`/api/Users/order`, product)
+            return dispatch(orderProductAction(result.data.content))
+        } catch (err) {
+            console.log("hih", err)
+            return;
+        }
+    }
+}
+
+
 
 export const getListProductSearchApi = (keyword) => {
     return async dispatch => {
