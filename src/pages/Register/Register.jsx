@@ -11,14 +11,7 @@ export const Register = () => {
     // const [email, setEmail] = useState("");
     // const [phone, setPhone] = useState("");
     // const [gender, setGender] = useState(true);
-
-    const handleChangeInput = (e) => {
-
-    }
-    const alertErr = (e) => {
-        let { value, name } = e.target;
-        e.target.style = 'block';
-    }
+    
     //const handleSubmit = async () => {
         //let item = { email, password, name, gender, phone }
         //console.log(item);
@@ -116,7 +109,7 @@ export const Register = () => {
                 <div className='text-left mt-3'>Register</div>
                 <hr />
                 <Form autoComplete='off' className='row w-100' name="basic" onFinish={(values) =>{
-                    const {email,gender,name,password,passwordcf,phone} = values
+                    const {email,gender,name,password,phone} = values
                     let item = { email, password, name, gender, phone }
                     console.log(item);
                     const action = resUserApii(item);

@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { message } from 'antd';
+import { history } from '../../App';
+import { PageConstant } from '../../Commons/page.constant';
 import { http } from '../../util/config';
 
 const initialState = {
@@ -26,7 +28,8 @@ export const resUserApii = (item) => {
     return async (dispatch2) => {
         try {
             const result = await http.post('/api/Users/signup', item)
-            message.success(`${result.content}`)
+            message.success('tạo tài khoản thành công')
+            history.push(`${PageConstant.login}`);
         }
         catch (err) {
             message.error(`${err.response.data.message}`)
