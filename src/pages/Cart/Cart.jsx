@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Space, Table, InputNumber, Avatar, Button } from 'antd';
 import './cart.scss'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { PRODUCT_CARD, getStoreJson, removeStore, saveStoreJson, TOTAL_QUATITY, saveStore, USER_LOGIN, http } from '../../util/config'
+import { PRODUCT_CARD, getStoreJson, saveStoreJson, TOTAL_QUATITY, saveStore, USER_LOGIN } from '../../util/config'
 import { orderProductApi, updateCartTotal, updateProductCartAfterDeleteApi } from '../../redux/Reducers/productReducer';
 import { history } from '../../App';
 import { PageConstant } from '../../Commons/page.constant';
@@ -28,7 +28,7 @@ const Cart = () => {
         }
     }
     const checkOutCart = async () => {
-        const orderDetail = getStoreJson(PRODUCT_CARD).map((cart) => {
+        const orderDetail = getStoreJson(PRODUCT_CARD)?.map((cart) => {
             return {
                 productId: String(cart.id),
                 quantity: cart.quantity

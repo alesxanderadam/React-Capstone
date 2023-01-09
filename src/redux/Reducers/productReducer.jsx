@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { message } from 'antd';
 import axios from 'axios';
-import { history } from '../../App';
 import { getStoreJson, PRODUCT_CARD, saveStore, saveStoreJson, TOTAL_QUATITY, http, removeStore } from '../../util/config';
+import { getProfileApi } from './loginReducer';
 
 const productCartCheck = () => {
     if (getStoreJson(PRODUCT_CARD)) {
@@ -51,21 +51,15 @@ const productReducer = createSlice({
             saveStore(TOTAL_QUATITY, state.quantity)
             if (!isExisted) {
                 state.productCart?.push({
-                    id: action.payload.id,
-                    name: action.payload.name,
-                    image: action.payload.image,
-                    price: action.payload.price,
+                    ...action.payload,
                     quantity: 1,
-                    totalPrice: action.payload.price,
                 })
                 saveStoreJson(PRODUCT_CARD, [...state.productCart])
-                console.log("if", [...state.productCart])
             }
             else {
                 isExisted.quantity++;
                 isExisted.totalPrice = Number(isExisted.totalPrice) + Number(action.payload.price)
                 saveStoreJson(PRODUCT_CARD, [...state.productCart])
-                console.log("if", [...state.productCart])
             }
             //  Calculate the total amount of the products in the cart
             state.totalAmount = state.productCart?.reduce(
@@ -80,8 +74,6 @@ const productReducer = createSlice({
             })
             removeStore(PRODUCT_CARD)
             removeStore(TOTAL_QUATITY)
-            history.push('/')
-            window.location.reload()
         },
         getListProductSearchAction: (state, action) => {
             state.keyword = action.payload
@@ -139,6 +131,7 @@ export const getProductByIdApi = (id) => {
         }
     }
 }
+
 export const getAddingCartProduct = (product) => {
     return async (dispatch) => {
         try {
@@ -154,9 +147,13 @@ export const orderProductApi = (product) => {
     return async dispatch => {
         try {
             const result = await http.post(`/api/Users/order`, product)
-            return dispatch(orderProductAction(result.data.content))
+            dispatch(orderProductAction(result.data.content))
+            dispatch(getProfileApi())
+            message.loading("Vui lòng chờ xử lý")
+            setTimeout(() => {
+                window.location.reload()
+            }, 1200)
         } catch (err) {
-            console.log("hih", err)
             return;
         }
     }
